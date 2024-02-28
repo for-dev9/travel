@@ -48,6 +48,10 @@ body {
     background-image: url('/pattern.png');
   }
 
+  .bg-feature-bg {
+    background-image: url('/feature-bg.png');
+  }
+
   .flexCenter {
     @apply flex items-center justify-center;
   }
