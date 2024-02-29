@@ -46,6 +46,7 @@ export default function Navbar() {
                   //   </Link>
                   // </NavigationMenuItem>
                   <NavMenu
+                    key={link.href}
                     pathname={pathname}
                     title={link.title}
                     href={link.href}
@@ -139,43 +140,46 @@ interface NavMenuProps {
 }
 
 function NavMenu({ pathname, title, href, desc, sub }: NavMenuProps) {
-  return (
-    <NavigationMenuItem
-      data-active={pathname === href}
-      className={cn(navStyle, navBgHover, navBgActive)}
-    >
-      {sub.length == 0 && (
-        <Link href={href} legacyBehavior passHref>
-          {title}
-        </Link>
-      )}
-
-      {sub.length > 0 && (
-        <>
-          <NavigationMenuTrigger
-            data-active={pathname === href}
-            className={cn(navStyle, navBgHover, navBgActive, navBgStateOpen)}
-          >
+  if (sub.length == 0) {
+    return (
+      <NavigationMenuItem
+        data-active={pathname === href}
+        className={cn(navStyle, navBgHover, navBgActive)}
+      >
+        {sub.length == 0 && (
+          <Link href={href} legacyBehavior passHref>
             {title}
-          </NavigationMenuTrigger>
+          </Link>
+        )}
+      </NavigationMenuItem>
+    );
+  }
 
-          <NavigationMenuContent className="relative top-10 border rounded-md bg-white">
-            <ul className="flex flex-col ">
-              {sub.map((s) => (
-                <Link
-                  href={s.href}
-                  data-active={pathname === s.href}
-                  className={cn(navSubStyle, navBgHover, navBgActive)}
-                >
-                  {s.title}
-                </Link>
-              ))}
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger
+        data-active={pathname === href}
+        className={cn(navStyle, navBgHover, navBgActive, navBgStateOpen)}
+      >
+        {title}
+      </NavigationMenuTrigger>
 
-              <div className="border-b hidden" />
-            </ul>
-          </NavigationMenuContent>
-        </>
-      )}
+      <NavigationMenuContent className="relative top-10 border rounded-md bg-white">
+        <ul className="flex flex-col ">
+          {sub.map((s) => (
+            <Link
+              key={s.href}
+              href={s.href}
+              data-active={pathname === s.href}
+              className={cn(navSubStyle, navBgHover, navBgActive)}
+            >
+              {s.title}
+            </Link>
+          ))}
+
+          <div className="border-b hidden" />
+        </ul>
+      </NavigationMenuContent>
     </NavigationMenuItem>
   );
 }
