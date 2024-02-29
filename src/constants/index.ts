@@ -6,11 +6,11 @@ export const NAV_LINKS = [
   { title: 'Pricing ', href: '/pricing', desc: ' ', sub: [] },
   {
     title: 'Contacts',
-    href: '#contacts',
+    href: '/',
     desc: '',
     sub: [
       { title: 'Phone', href: '/contact/phone', desc: '' },
-      { title: 'Email', href: '/contact/email', desc: '' },
+      { title: 'Email', href: '/', desc: '' },
     ],
   },
 ];
