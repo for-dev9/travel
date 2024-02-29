@@ -16,15 +16,15 @@ import {
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
+const navBgHover = 'hover:bg-accent/50'; //bg-accent
+const navBgStateOpen = 'data-[state=open]:bg-accent/50'; //bg_accent
+const navBgActive = 'data-[active=true]:bg-accent'; //bg-accent/50
+const navStyle =
+  'group inline-flex h-9 items-center w-max rounded-md px-4 py-2 text-sm font-normal transition-colors disabled:pointer-events-none disabled:opacity-50';
+const navSubStyle = 'pl-4 pr-24 py-2 text-sm border-b border-gray-100';
+
 export default function Navbar() {
   const pathname = usePathname();
-
-  const navBgHover = 'hover:bg-accent/50'; //bg-accent
-  const navBgStateOpen = 'data-[state=open]:bg-accent/50'; //bg_accent
-  const navBgActive = 'data-[active=true]:bg-accent'; //bg-accent/50
-  const navStyle =
-    'group inline-flex h-9 items-center w-max rounded-md px-4 py-2 text-sm font-normal transition-colors disabled:pointer-events-none disabled:opacity-50';
-  const navSubStyle = 'pl-4 pr-24 py-2 text-sm border-b border-gray-100';
   return (
     <>
       <nav className="flexBetween max-container padding-container relative z-30 py-5">
@@ -35,16 +35,26 @@ export default function Navbar() {
         <ul className="hidden h-full gap-12 lg:flex">
           <NavigationMenu>
             <NavigationMenuList>
-              {NAV_LINKS.map((link) => (
-                <NavigationMenuItem
-                  data-active={pathname === link.href}
-                  className={cn(navStyle, navBgHover, navBgActive)}
-                >
-                  <Link href={link.href} legacyBehavior passHref>
-                    {link.title}
-                  </Link>
-                </NavigationMenuItem>
-              ))}
+              {NAV_LINKS.map(
+                (link) => (
+                  // <NavigationMenuItem
+                  //   data-active={pathname === link.href}
+                  //   className={cn(navStyle, navBgHover, navBgActive)}
+                  // >
+                  //   <Link href={link.href} legacyBehavior passHref>
+                  //     {link.title}
+                  //   </Link>
+                  // </NavigationMenuItem>
+                  <NavMenu
+                    pathname={pathname}
+                    title={link.title}
+                    href={link.href}
+                    desc={link.desc}
+                    sub={link.sub}
+                  />
+                )
+                //  NavMenu<pathnamepathname, title=, link.href, link.desc, link.sub);
+              )}
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger
@@ -113,5 +123,59 @@ export default function Navbar() {
         />
       </nav>
     </>
+  );
+}
+
+interface NavMenuProps {
+  pathname: string;
+  title: string;
+  href: string;
+  desc: string;
+  sub: {
+    title: string;
+    href: string;
+    desc: string;
+  }[];
+}
+
+function NavMenu({ pathname, title, href, desc, sub }: NavMenuProps) {
+  return (
+    <NavigationMenuItem
+      data-active={pathname === href}
+      className={cn(navStyle, navBgHover, navBgActive)}
+    >
+      {sub.length == 0 && (
+        <Link href={href} legacyBehavior passHref>
+          {title}
+        </Link>
+      )}
+
+      {sub.length > 0 && (
+        <>
+          <NavigationMenuTrigger
+            data-active={pathname === href}
+            className={cn(navStyle, navBgHover, navBgActive, navBgStateOpen)}
+          >
+            {title}
+          </NavigationMenuTrigger>
+
+          <NavigationMenuContent className="relative top-10 border rounded-md bg-white">
+            <ul className="flex flex-col ">
+              {sub.map((s) => (
+                <Link
+                  href={s.href}
+                  data-active={pathname === s.href}
+                  className={cn(navSubStyle, navBgHover, navBgActive)}
+                >
+                  {s.title}
+                </Link>
+              ))}
+
+              <div className="border-b hidden" />
+            </ul>
+          </NavigationMenuContent>
+        </>
+      )}
+    </NavigationMenuItem>
   );
 }

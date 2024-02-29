@@ -1,14 +1,14 @@
 // NAVIGATION
 export const NAV_LINKS = [
-  { title: 'Home', href: '/', desc: 'Main Page' },
-  { title: 'How Hilink Work?', href: '/how', desc: '' },
-  { title: 'Services', href: '/services', desc: '' },
-  { title: 'Pricing ', href: '/pricing', desc: ' ' },
+  { title: 'Home', href: '/', desc: 'Main Page', sub: [] },
+  { title: 'How Hilink Work?', href: '/how', desc: '', sub: [] },
+  { title: 'Services', href: '/services', desc: '', sub: [] },
+  { title: 'Pricing ', href: '/pricing', desc: ' ', sub: [] },
   {
     title: 'Contacts',
     href: '#contacts',
     desc: '',
-    sub1: [
+    sub: [
       { title: 'Phone', href: '/contact/phone', desc: '' },
       { title: 'Email', href: '/contact/email', desc: '' },
     ],
