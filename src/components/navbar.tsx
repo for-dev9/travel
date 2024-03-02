@@ -31,9 +31,13 @@ const subMenuPadding = 'pl-4 pr-20 py-2';
 const navBgHover = 'hover:bg-accent/50';
 const navBgStateOpen = 'data-[state=open]:bg-accent/50';
 const navBgActive = 'data-[active=true]:bg-accent';
+const bgActive = 'bg-accent';
 const navStyle =
-  'group inline-flex h-9 items-center w-max rounded-md text-sm font-normal transition-colors disabled:pointer-events-none disabled:opacity-50';
-const navSubStyle = 'py-2 text-sm border-b border-gray-100';
+  'text-sm font-normal inline-flex items-center w-max rounded-md disabled:pointer-events-none disabled:opacity-50';
+const navSubStyle =
+  'text-sm font-normal border-b border-gray-100 disabled:pointer-events-none disabled:opacity-50';
+const navMobileStyle = 'text-lg font-normal px-5 py-3 hover:no-underline';
+const navMobileSubStyle = 'text-base text-gray-600 pl-10 py-2 border-t';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -92,25 +96,6 @@ export default function Navbar() {
                   setMobileMenuOpen={setMobileMenuOpen}
                 />
               ))}
-
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="px-5 py-3 text-base hover:bg-accent hover:no-underline">
-                  Settings
-                </AccordionTrigger>
-                <Link
-                  href={'/'}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                  }}
-                >
-                  <AccordionContent className="pl-10 py-2 text-base text-gray-500 border-t hover:bg-accent/70">
-                    Home
-                  </AccordionContent>
-                </Link>
-                <AccordionContent className="pl-10 py-2 text-base text-gray-500 border-t hover:bg-accent/70">
-                  SMTP
-                </AccordionContent>
-              </AccordionItem>
             </Accordion>
           </SheetContent>
         </Sheet>
@@ -122,14 +107,18 @@ export default function Navbar() {
 function MobileMenu(props: NavMenuProps) {
   if (props.sub.length == 0) {
     return (
-      <AccordionItem value="mainCategory">
+      <AccordionItem
+        value="mainCategory"
+        data-active={props.pathname === props.href}
+        className={navBgActive}
+      >
         <Link
           href={props.href}
           onClick={() => {
             if (props.setMobileMenuOpen) props.setMobileMenuOpen(false);
           }}
         >
-          <AccordionContent className="px-5 py-3 text-lg hover:bg-accent">
+          <AccordionContent className={cn(navMobileStyle, navBgHover)}>
             {props.title}
           </AccordionContent>
         </Link>
@@ -138,7 +127,12 @@ function MobileMenu(props: NavMenuProps) {
   } else if (props.sub.length > 0) {
     return (
       <AccordionItem value="mainCategoryWithSub">
-        <AccordionTrigger className="px-5 py-3 text-base hover:bg-accent hover:no-underline">
+        <AccordionTrigger
+          data-active={props.sub.some((s) => {
+            return props.pathname === s.href;
+          })}
+          className={cn(navMobileStyle, navBgHover, navBgActive)}
+        >
           {props.title}
         </AccordionTrigger>
 
@@ -150,7 +144,11 @@ function MobileMenu(props: NavMenuProps) {
               if (props.setMobileMenuOpen) props.setMobileMenuOpen(false);
             }}
           >
-            <AccordionContent className="pl-10 py-2 text-base text-gray-500 border-t hover:bg-accent/70">
+            <AccordionContent
+              className={cn(navMobileSubStyle, navBgHover, {
+                [bgActive]: props.pathname === s.href,
+              })}
+            >
               {s.title}
             </AccordionContent>
           </Link>
