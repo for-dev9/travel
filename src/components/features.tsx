@@ -30,7 +30,10 @@ function FeatureItem({
 
 export default function Features() {
   return (
-    <section className="flex items-center justify-center flex-col overflow-hidden bg-feature-bg bg-center bg-no-repeat py-24">
+    <section
+      id="features"
+      className="flex items-center justify-center flex-col overflow-hidden bg-feature-bg bg-center bg-no-repeat py-24"
+    >
       <div className="max-container padding-container relative w-full flex justify-end">
         <div className="flex lg:min-h-[900px]">
           <Image

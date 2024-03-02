@@ -16,16 +16,16 @@ export interface NavMenuProps {
 
 export const NAV_LINKS: NavMenuProps[] = [
   { title: 'Home', href: '/', desc: 'Main Page', sub: [] },
-  { title: 'How Hilink Work?', href: '/how', desc: '', sub: [] },
-  { title: 'Services', href: '/services', desc: '', sub: [] },
-  { title: 'Pricing ', href: '/pricing', desc: '', sub: [] },
+  { title: 'How Hilink Work?', href: '/#camp', desc: '', sub: [] },
+  { title: 'Guide', href: '/#guide', desc: '', sub: [] },
+  { title: 'Features ', href: '/#features', desc: '', sub: [] },
   {
     title: 'Contacts',
-    href: '',
+    href: '/#contacts',
     desc: '',
     sub: [
-      { title: 'Phone', href: '/cc', desc: 'phone' },
-      { title: 'Email', href: '/', desc: '' },
+      // { title: 'Phone', href: '/cc', desc: 'phone' },
+      // { title: 'Email', href: '/', desc: '' },
     ],
   },
 ];

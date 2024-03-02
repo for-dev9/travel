@@ -77,7 +77,12 @@ export default function Navbar() {
               className="inline-block cursor-pointer md:hidden"
             />
           </SheetTrigger>
-          <SheetContent className="px-0 overflow-y-scroll">
+          <SheetContent
+            onCloseAutoFocus={(e) => {
+              e.preventDefault();
+            }}
+            className="px-0 overflow-y-scroll"
+          >
             <Accordion
               type="multiple"
               defaultValue={['mainCategory']}

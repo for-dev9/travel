@@ -2,7 +2,10 @@ import Image from 'next/image';
 
 export default function Guide() {
   return (
-    <section className="flexCenter flex-col mt-4 lg:mt-[70px] xl:mt-[120px] 2xl:mt-[250px]">
+    <section
+      id="guide"
+      className="flexCenter flex-col mt-4 lg:mt-[70px] xl:mt-[120px] 2xl:mt-[250px]"
+    >
       <div className=" max-container padding-container w-full pb-24">
         <Image src={'/camp.svg'} alt="camp" width={50} height={50} />
         <p className="uppercase regular-18 -mt-1 mb-3 text-green-500">

@@ -10,6 +10,7 @@ interface CampSiteProps {
 function CampSite({ bgImage, title, subTitle, peopleJoined }: CampSiteProps) {
   return (
     <div
+      id="camp"
       className={`h-full w-full min-w-[550px] md:min-w-[750px] lg:min-w-[1100px] lg:rounded-r-3xl xl:rounded-[40px]`}
       style={{
         background: `url("${bgImage}")`,
