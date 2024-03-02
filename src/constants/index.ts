@@ -1,15 +1,30 @@
 // NAVIGATION
-export const NAV_LINKS = [
+export interface NavMenuProps {
+  title: string;
+  href: string;
+  desc: string;
+  sub: {
+    title: string;
+    href: string;
+    desc: string;
+    icon?: string;
+  }[];
+  icon?: string;
+  pathname?: string;
+  setMobileMenuOpen?(data: boolean): void;
+}
+
+export const NAV_LINKS: NavMenuProps[] = [
   { title: 'Home', href: '/', desc: 'Main Page', sub: [] },
   { title: 'How Hilink Work?', href: '/how', desc: '', sub: [] },
   { title: 'Services', href: '/services', desc: '', sub: [] },
-  { title: 'Pricing ', href: '/pricing', desc: ' ', sub: [] },
+  { title: 'Pricing ', href: '/pricing', desc: '', sub: [] },
   {
     title: 'Contacts',
-    href: '/',
+    href: '',
     desc: '',
     sub: [
-      { title: 'Phone', href: '/contact/phone', desc: '' },
+      { title: 'Phone', href: '/cc', desc: 'phone' },
       { title: 'Email', href: '/', desc: '' },
     ],
   },
