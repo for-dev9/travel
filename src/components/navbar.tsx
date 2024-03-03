@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { useState } from 'react';
+import BackToTop from './backToTop';
 
 const menuPadding = 'px-4 py-2';
 const subMenuPadding = 'pl-4 pr-20 py-2';
@@ -45,6 +46,7 @@ export default function Navbar() {
 
   return (
     <>
+      <BackToTop />
       <nav className="flexBetween max-container padding-container relative z-30 py-5">
         <Link href={'/'}>
           <Image src="/hilink-logo.svg" alt="logo" width={74} height={29} />
@@ -60,50 +62,52 @@ export default function Navbar() {
           </NavigationMenu>
         </ul>
 
-        <div className="hidden md:flexCenter">
-          <Button
-            type="button"
-            title="Login"
-            icon="/user.svg"
-            variant="btn_dark_green"
-          />
-        </div>
-
-        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-          <SheetTrigger>
-            <HamburgerMenuIcon
-              height={33}
-              width={33}
-              className="inline-block cursor-pointer md:hidden"
+        <div className="flex items-center">
+          <div className="hidden md:flexCenter">
+            <Button
+              type="button"
+              title="Login"
+              icon="/user.svg"
+              variant="btn_dark_green"
             />
-          </SheetTrigger>
-          <SheetContent
-            onCloseAutoFocus={(e) => {
-              e.preventDefault();
-            }}
-            className="px-0 overflow-y-scroll"
-          >
-            <Accordion
-              type="multiple"
-              defaultValue={['mainCategory']}
-              className="w-full pt-5 cursor-pointer"
+          </div>
+
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger>
+              <HamburgerMenuIcon
+                height={33}
+                width={33}
+                className="inline-block cursor-pointer md:hidden"
+              />
+            </SheetTrigger>
+            <SheetContent
+              onCloseAutoFocus={(e) => {
+                e.preventDefault();
+              }}
+              className="px-0 overflow-y-scroll"
             >
-              {/* <AccordionItem value="menu1">
+              <Accordion
+                type="multiple"
+                defaultValue={['mainCategory']}
+                className="w-full pt-5 cursor-pointer"
+              >
+                {/* <AccordionItem value="menu1">
                 <AccordionContent className="px-5 py-3 text-lg hover:bg-accent">
                   Home
                 </AccordionContent>
               </AccordionItem> */}
-              {NAV_LINKS.map((link) => (
-                <MobileMenu
-                  key={link.href}
-                  pathname={pathname}
-                  {...link}
-                  setMobileMenuOpen={setMobileMenuOpen}
-                />
-              ))}
-            </Accordion>
-          </SheetContent>
-        </Sheet>
+                {NAV_LINKS.map((link) => (
+                  <MobileMenu
+                    key={link.href}
+                    pathname={pathname}
+                    {...link}
+                    setMobileMenuOpen={setMobileMenuOpen}
+                  />
+                ))}
+              </Accordion>
+            </SheetContent>
+          </Sheet>
+        </div>
       </nav>
     </>
   );
