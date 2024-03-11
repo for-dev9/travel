@@ -201,9 +201,8 @@ function NavMenu(props: NavMenuProps) {
         <NavigationMenuContent className="relative top-10 border rounded-md bg-white">
           <ul className="flex flex-col ">
             {props.sub.map((s) => (
-              <NavigationMenuLink asChild>
+              <NavigationMenuLink asChild key={s.href}>
                 <Link
-                  key={s.href}
                   href={s.href}
                   title={s.desc}
                   data-active={props.pathname === s.href}
